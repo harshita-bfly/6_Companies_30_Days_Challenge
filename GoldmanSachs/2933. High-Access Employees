@@ -1,0 +1,43 @@
+class Solution {
+public:
+
+    bool check (vector<string>& times){
+    //checking if any time interval of length 3 exist such that difference is within 1 hour. 
+   //checking i and i+2 difference since i+1 will also be satisfied(already sorted).
+        int n = times.size();
+        for(int i = 2 ; i<n;i++){
+            if(stoi(times[i])-stoi(times[i-2])<100){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    vector<string> findHighAccessEmployees(vector<vector<string>>& access_times) {
+
+        vector<string>ans;
+
+     //First sorted the array based on access time.
+        sort(access_times.begin(), access_times.end(),[](vector<string>a1, vector<string>b1){ 
+            return a1[1] < b1[1];
+        });
+
+        //pushed employee-access_time as key-value pair.
+        unordered_map<string, vector<string>>mymap;
+
+        for(auto&  i : access_times){
+            mymap[i[0]].push_back(i[1]);
+        }
+
+        //Only checking those employess that have equal to or greater than 3 number of access time
+        for(auto& it : mymap){
+            if(it.second.size() >=3){
+                if(check(it.second)){ //check for high access employees
+                    ans.push_back(it.first);
+                }
+            }
+        }
+        return ans;
+
+    }
+};

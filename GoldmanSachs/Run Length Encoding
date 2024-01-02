@@ -1,0 +1,27 @@
+string encode(string str)
+{     
+  Using a slight concept of sliding window and two pointers
+  
+  int i = 0, j = 0, cnt = 0;
+  string ans;
+  
+  while(j<str.size()){
+
+      if(str[i] == str[j]){
+          j++;
+          cnt++;
+      }
+      else{
+          ans+=str[i];
+          ans+= to_string(cnt);  
+          i = j;
+          cnt = 0;  //reset the count
+      }
+  }
+  
+  ans+=str[i]; //adding the last characters' count.
+  ans+=to_string(cnt);
+
+
+  return ans;
+}     

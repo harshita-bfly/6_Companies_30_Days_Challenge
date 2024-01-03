@@ -1,6 +1,6 @@
 string encode(string str)
 {     
-  Using a slight concept of sliding window and two pointers
+  // Using a slight concept of sliding window and two pointers
   
   int i = 0, j = 0, cnt = 0;
   string ans;

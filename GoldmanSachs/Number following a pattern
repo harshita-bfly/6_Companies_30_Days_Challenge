@@ -1,0 +1,22 @@
+string printMinNumberForPattern(string s) {
+        int n = s.length();
+        int cnt = 1;
+        string ans(n + 1, ' '); // Initializing the string with spaces
+
+        for (int i = 0; i <= n; i++) {
+            
+            if (i == n || s[i] == 'I') {
+                
+                for (int j = i - 1; j >= -1; j--) {
+                    
+                    ans[j + 1] = '0' + cnt;
+                    cnt++;
+                    
+                    if (j >= 0 && s[j] == 'I') {
+                        break;
+                    }
+                }
+            }
+        }
+        return ans;
+    }

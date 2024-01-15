@@ -1,0 +1,31 @@
+
+
+class Solution {
+public:
+    int findLength(vector<int>& nums1, vector<int>& nums2) {
+        string nums2_str;
+        for (int x : nums2) {
+            nums2_str.push_back(static_cast<char>(x));
+        }
+
+        string max_str;
+        int len = 0;
+
+        for (int num : nums1) {
+            max_str.push_back(static_cast<char>(num));
+            if (nums2_str.find(max_str) != string::npos) {
+                // len = max(len, str.size());
+                len = max(len, static_cast<int>(max_str.length()));
+            } else {
+                max_str = max_str.substr(1);
+            }
+        }
+
+        return len;
+    }
+};
+
+
+
+
+

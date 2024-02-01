@@ -1,0 +1,33 @@
+class Solution {
+public:
+    
+    void helper(int index, string& temp, vector<string>& ans, string& digits, int n, vector<string>& help){
+
+        if(temp.size()==n){
+            ans.push_back(temp);
+            return;
+        }
+
+        string range = help[digits[index]-'0'];
+
+        for(int i = 0; i<range.size();i++){
+            temp+=range[i];
+            helper(index+1, temp, ans, digits, n, help);
+            temp.pop_back();
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+      
+       if(digits.empty()){
+           return {};
+       }
+       vector<string>ans;
+       string temp;
+       int n = digits.size();
+       vector<string>help = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+
+       helper(0, temp, ans, digits, n, help);
+       return ans;
+       //tc and sc = 3^n + 4^m
+    }
+};

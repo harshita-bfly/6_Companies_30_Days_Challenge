@@ -1,0 +1,52 @@
+class Solution {
+public:
+
+    void grooming(vector<string>& arr, int trim){
+        int n = arr[0].size(); //sabka size same hain already given
+
+        for(int i = 0; i<arr.size();i++){
+            // int n = arr[i].size();
+           arr[i] =  arr[i].substr(n-trim);
+        }
+    }
+
+    pair<string,int> k_smallest(vector<string>& arr, int k){
+        
+        priority_queue<pair<string,int>>pq;
+
+        for(int i = 0;i<arr.size();i++){
+            pq.push({arr[i], i});
+
+            if(pq.size()>k){
+                pq.pop();
+            }
+        }
+
+        return pq.top(); //k smallest element
+
+    }
+
+    vector<int> smallestTrimmedNumbers(vector<string>& nums, vector<vector<int>>& queries) {
+
+        vector<int>ans;
+        
+        for(int i = 0; i<queries.size();i++){
+
+            vector<string> arr(nums.begin(), nums.end());
+
+            int k = queries[i][0];
+            int trim = queries[i][1];
+
+            grooming(arr, trim);
+            pair<string,int>small = k_smallest(arr,k); 
+            ans.push_back(small.second);
+        }
+        return ans;
+    }
+};
+
+
+
+
+
+

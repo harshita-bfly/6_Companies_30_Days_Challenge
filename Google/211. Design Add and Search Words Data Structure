@@ -1,0 +1,85 @@
+class TrieNode{
+    public:
+    char data;
+    TrieNode **children;
+    bool isTerm;
+
+    TrieNode(char data){
+        this->data = data;
+        children = new TrieNode*[26];
+        isTerm= false;
+
+        for(int i = 0 ;i<26;i++){
+            children[i] = NULL;
+        }
+    }
+};
+
+
+class WordDictionary {
+public:
+
+    TrieNode *root;
+
+    WordDictionary() {
+        root = new TrieNode('\0');
+    }
+    
+    void insert_helper(TrieNode* root, string word){
+        if(word.size() == 0){
+            root->isTerm = true;
+            return;
+        }
+
+        int index = word[0]-'a';
+ 
+        TrieNode* child;
+        if(root->children[index] != NULL){
+            child = root->children[index];
+        }
+        else{
+            child = new TrieNode(word[0]);
+            root->children[index] = child;
+        }
+        insert_helper(child, word.substr(1));
+    }
+    void addWord(string word) {
+       insert_helper(root, word); 
+    }
+
+    bool search_helper(TrieNode* root, string word) {
+        if (word.empty()) {
+            return root->isTerm; // Check for terminal node at the end of the word
+        }
+
+        char c = word[0];
+
+        if (c == '.') {
+            for (int i = 0; i < 26; i++) {
+                if (root->children[i] != NULL && search_helper(root->children[i], word.substr(1))) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            int index = c - 'a';
+            if (root->children[index] == NULL) {
+                return false;
+            } else {
+                return search_helper(root->children[index], word.substr(1));
+            }
+        }
+    }
+    
+   
+    bool search(string word) {
+        return search_helper(root,word);
+    }
+};
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary* obj = new WordDictionary();
+ * obj->addWord(word);
+ * bool param_2 = obj->search(word);
+ */

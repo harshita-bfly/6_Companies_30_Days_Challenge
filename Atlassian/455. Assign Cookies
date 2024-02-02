@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int findContentChildren(vector<int>& g, vector<int>& s) {
+        //when i read the q , it was the ptrs that has to go from forward and easy if sorted to comapre the cond
+        //in eg too, they gave in sorted order..that made the undertsanding of the q easy
+        sort(g.begin(),g.end());
+        sort(s.begin(),s.end());
+
+        int i=0,j=0;
+        int n= g.size();
+        int m=s.size();
+        int count=0;
+
+        while(i<n && j<m){
+            if(s[j] >= g[i]){
+                count++;
+                i++;
+                j++;
+            }
+            else{
+                //continue- TLE--
+                //break- only 10 cases passed..if first elm is not equal..rem arr will not be checked.
+                //i++-wrong ans
+              j++;
+            }
+        }
+        return count;
+        
+    }
+};

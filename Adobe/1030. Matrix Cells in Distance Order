@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<vector<int>> allCellsDistOrder(int rows, int cols, int rCenter, int cCenter) {
+
+        queue<pair<int,int>>q;
+        vector<vector<int>>ans;
+        vector<vector<int>>vis(rows,vector<int>(cols,0));
+
+        // q.push({0,0});
+        q.push({rCenter,cCenter});
+        vis[rCenter][cCenter] = 1;
+
+        while(!q.empty()){
+            pair<int,int> p = q.front();
+            q.pop();
+            int r = p.first;
+            int c = p.second;
+
+            
+
+             ans.push_back({r,c});
+
+            int x[4] = {-1 ,0 , +1, 0};
+            int y[4] = {0, +1, 0, -1};
+
+            for(int i = 0 ;i<4;i++){
+                int nx = r+x[i];
+                int ny = c+y[i];
+
+                if(nx>=0 && nx<rows && ny>=0 && ny<cols && vis[nx][ny]== 0){
+                    q.push({nx,ny});
+                    vis[nx][ny] = 1;
+                } 
+            }
+
+        }  
+        return ans;
+        
+    }
+};

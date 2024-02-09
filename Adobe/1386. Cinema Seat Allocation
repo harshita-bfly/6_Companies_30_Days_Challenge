@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool isVacant(int start,int end,vector<int>&row){
+        for(int seat:row){
+             if(seat>=start&&seat<=end)return false;
+        }
+        return true;
+    }
+    int maxNumberOfFamilies(int n, vector<vector<int>>& reservedSeats) {
+
+        unordered_map<int,vector<int>>mymap;
+        for(auto i:reservedSeats) {
+            if(i[1]==1||i[1]==10)continue;
+            mymap[i[0]].push_back(i[1]);
+        }
+
+        int families = (n-mymap.size())*2;
+        
+
+        for(auto i: mymap){
+            if(isVacant(2,5,i.second)||isVacant(4,7,i.second)||isVacant(6,9,i.second))
+                families++;   
+        }
+        return families;
+    }
+};
+
